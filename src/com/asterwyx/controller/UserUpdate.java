@@ -8,11 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-public class UserAdd extends HttpServlet {
+public class UserUpdate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String student_id = req.getParameter("student_id");
@@ -30,7 +27,7 @@ public class UserAdd extends HttpServlet {
                 address
         );
         StudentDAO dao = new StudentDAO();
-        int status = dao.insert(student);
+        int status = dao.update(student);
         if (status != 0) {
             req.getRequestDispatcher("succeed.html").forward(req, resp);
         } else {
@@ -40,7 +37,7 @@ public class UserAdd extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8"); // 在使用POST方法的时候，浏览器会使用html指定的编码（在meta中指定的编码）进行参数的编码，在这里需要设置相应的编码来解码
+        req.setCharacterEncoding("UTF-8");
         String student_id = req.getParameter("student_id");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
@@ -56,7 +53,7 @@ public class UserAdd extends HttpServlet {
                 address
         );
         StudentDAO dao = new StudentDAO();
-        int status = dao.insert(student);
+        int status = dao.update(student);
         if (status != 0) {
             req.getRequestDispatcher("succeed.html").forward(req, resp);
         } else {

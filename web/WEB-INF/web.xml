@@ -27,6 +27,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>UserSearch</servlet-name>
+        <servlet-class>com.asterwyx.controller.UserSearch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserSearch</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserUpdate</servlet-name>
+        <servlet-class>com.asterwyx.controller.UserUpdate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserUpdate</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Register</servlet-name>
         <servlet-class>com.asterwyx.controller.Register</servlet-class>
     </servlet>

@@ -1,6 +1,8 @@
 package com.asterwyx.controller;
 
-import com.asterwyx.model.UserDA;
+import com.asterwyx.entity.StudentDAO;
+import com.asterwyx.model.Student;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,35 +15,30 @@ import java.sql.Statement;
 public class UserDel extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        Student student = new Student();
+        StudentDAO dao = new StudentDAO();
+        String student_id = req.getParameter("student_id");
+        student.setStudentId(student_id);
+        int status = dao.delete(student);
+        if (status != 0) {
+            req.getRequestDispatcher("succeed.html").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("fail.html").forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection connection = null;
-        try {
-            connection = UserDA.getConnection();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        if (connection != null) {
-            String student_id = req.getParameter("student_id");
-            String sql = "DELETE FROM student_info WHERE student_id = \"" + student_id +"\";";
-            System.out.println(sql);
-            Statement stm;
-            try {
-                 stm = connection.createStatement();
-                 stm.execute(sql);
-                 stm.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } finally {
-                try {
-                    connection.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
+        req.setCharacterEncoding("UTF-8");
+        Student student = new Student();
+        StudentDAO dao = new StudentDAO();
+        String student_id = req.getParameter("student_id");
+        student.setStudentId(student_id);
+        int status = dao.delete(student);
+        if (status != 0) {
+            req.getRequestDispatcher("succeed.html").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("fail.html").forward(req, resp);
         }
     }
 }
